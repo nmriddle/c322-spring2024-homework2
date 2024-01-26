@@ -58,27 +58,29 @@ public class InventoryRepository {
          */
         List<Guitar> searchGuitars = new ArrayList<>();
         for (Guitar guitar : guitars) {
-            if(searchGuitar.getBuilder()!=null && searchGuitar.getBuilder().equals(guitar.getSerialNumber())){
+            if (searchGuitar.getSerialNumber() != null && !searchGuitar.getSerialNumber().equals(guitar.getSerialNumber())) {
                 continue;
             }
-            if(searchGuitar.getPrice()!=null && searchGuitar.getPrice().equals(guitar.getPrice())){
+            if (searchGuitar.getBuilder() != null && !searchGuitar.getBuilder().equals(guitar.getBuilder())) {
                 continue;
             }
-            if(searchGuitar.getModel()!=null && searchGuitar.getModel().equals(guitar.getModel())){
+            if (searchGuitar.getPrice() != null && !searchGuitar.getPrice().equals(guitar.getPrice())) {
                 continue;
             }
-            if(searchGuitar.getType()!=null && searchGuitar.getType().equals(guitar.getType())){
+            if (searchGuitar.getModel() != null && !searchGuitar.getModel().equals(guitar.getModel())) {
                 continue;
             }
-            if(searchGuitar.getBackWood()!=null && searchGuitar.getType().equals(guitar.getBackWood())){
+            if (searchGuitar.getType() != null && !searchGuitar.getType().equals(guitar.getType())) {
                 continue;
             }
-            if(searchGuitar.getTopWood()!=null && searchGuitar.getType().equals(guitar.getTopWood())){
+            if (searchGuitar.getBackWood() != null && !searchGuitar.getBackWood().equals(guitar.getBackWood())) {
                 continue;
             }
-            guitars.add(guitar);
+            if (searchGuitar.getTopWood() != null && !searchGuitar.getTopWood().equals(guitar.getTopWood())) {
+                continue;
+            }
+            searchGuitars.add(guitar);
         }
         return searchGuitars;
     }
-
 }

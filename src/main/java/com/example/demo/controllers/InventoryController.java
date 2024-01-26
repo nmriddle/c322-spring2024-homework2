@@ -2,12 +2,11 @@ package com.example.demo.controllers;
 
 import com.example.demo.model.Guitar;
 import com.example.demo.repository.InventoryRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@RestController
+@RequestMapping("/guitars")
 public class InventoryController {
     InventoryRepository inventoryRepository;
 
@@ -15,7 +14,7 @@ public class InventoryController {
         inventoryRepository = new InventoryRepository();
     }
 
-    @GetMapping("/search?serialNumber={serialNumber}")
+    @GetMapping("/search")
     public List<Guitar> search(
             @RequestParam(required = false) String serialNumber,
             @RequestParam(required = false) Double price,
@@ -29,18 +28,12 @@ public class InventoryController {
     }
 
     @PostMapping
-    public void add(@RequestParam String serialNumber,
-                    @RequestParam double price,
-                    @RequestParam String builder,
-                    @RequestParam String model,
-                    @RequestParam String type,
-                    @RequestParam String backWood,
-                    @RequestParam String topWood){
-        inventoryRepository.addGuitar(serialNumber,price,builder,model,type,backWood,topWood);
+    public void add(@RequestBody Guitar guitar) {
+        inventoryRepository.addGuitar(guitar.getSerialNumber(), guitar.getPrice(), guitar.getBuilder(), guitar.getModel(), guitar.getType(), guitar.getBackWood(), guitar.getTopWood());
     }
 
-    @GetMapping
-    public Guitar find(@RequestParam String serialNumber){
+    @GetMapping("/find")
+    public Guitar find(@RequestParam String serialNumber) {
         return inventoryRepository.getGuitar(serialNumber);
     }
 }
