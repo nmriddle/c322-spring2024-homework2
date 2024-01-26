@@ -13,7 +13,7 @@ class InventoryRepositoryTest {
 
     @Test
     void getGuitar() {
-        assertFalse(2==3);
+        assertFalse(2==4);
     }
 
     @Test
