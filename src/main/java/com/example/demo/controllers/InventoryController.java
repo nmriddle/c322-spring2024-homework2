@@ -27,7 +27,7 @@ public class InventoryController {
         return inventoryRepository.search(searchGuitar);
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public void add(@RequestBody Guitar guitar) {
         inventoryRepository.addGuitar(guitar.getSerialNumber(), guitar.getPrice(), guitar.getBuilder(), guitar.getModel(), guitar.getType(), guitar.getBackWood(), guitar.getTopWood());
     }

@@ -53,7 +53,7 @@ public class InventoryRepository {
 
     public List<Guitar> search(Guitar searchGuitar) {
         /**
-         * checks if a given guitar exists
+         * returns all guitars with the properties of searchGuitar (skips null ones)
          *
          */
         List<Guitar> searchGuitars = new ArrayList<>();
