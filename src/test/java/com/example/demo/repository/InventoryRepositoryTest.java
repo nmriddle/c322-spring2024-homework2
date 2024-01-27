@@ -1,9 +1,9 @@
 package com.example.demo.repository;
 
+import com.example.demo.model.Guitar;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -63,10 +63,32 @@ class InventoryRepositoryTest {
 
     @Test
     void getGuitar() {
-
+        InventoryRepository inventoryRepository = new InventoryRepository();
+        inventoryRepository.addGuitar("123456", 999.99, "Fender", "Stratocaster", "Electric", "Maple", "Alder");
+        inventoryRepository.addGuitar("234567", 999.99, "Fender", "Stratocaster", "Electric", "Maple", "Alder");
+        assertNotNull(inventoryRepository.getGuitar("123456"));
+        assertNotNull(inventoryRepository.getGuitar("234567"));
+        assertNull(inventoryRepository.getGuitar("43079"));
+        inventoryRepository = new InventoryRepository();
+        assertNull(inventoryRepository.getGuitar("43079"));
+        assertNull(inventoryRepository.getGuitar("234567"));
     }
 
     @Test
     void search() {
+        InventoryRepository inventoryRepository = new InventoryRepository();
+        inventoryRepository.addGuitar("123456", 999.99, "Fender", "Stratocaster", "Electric", "Maple", "Alder");
+        inventoryRepository.addGuitar("234567", 999.99, "Fender", "Stratocaster", "Electric", "Maple", "Alder");
+        inventoryRepository.addGuitar("345678", 899.99, "Gibson", "Les Paul", "Acoustic", "Rosewood", "Mahogany");
+        inventoryRepository.addGuitar("456789", 899.99, "Epiphone", "SG", "Acoustic", "Mahogany", "Mahogany");
+        inventoryRepository.addGuitar("567890", 1199.99, "Ibanez", "RG", "Electric", "Rosewood", "Mahogany");
+        inventoryRepository.addGuitar("678901", 699.99, "Jackson", "Soloist", "Electric", "Ebony", "Alder");
+        inventoryRepository.addGuitar("789101", 1299.99, "PRS", "Custom 24", "Acoustic", "Mahogany", "Maple");
+        assertEquals(2, inventoryRepository.search(new Guitar(null, 999.99, null, null, null, null, null)).size());
+        assertEquals(3, inventoryRepository.search(new Guitar(null, null, null, null, "Acoustic", null, null)).size());
+        assertEquals(2, inventoryRepository.search(new Guitar(null, null, null, null, "Acoustic", "Mahogany", null)).size());
+        assertEquals(2, inventoryRepository.search(new Guitar(null, null, null, null, null, "Maple", "Alder")).size());
+        assertEquals(1, inventoryRepository.search(new Guitar(null, 899.99, "Gibson", null, null, null, null)).size());
+
     }
 }
