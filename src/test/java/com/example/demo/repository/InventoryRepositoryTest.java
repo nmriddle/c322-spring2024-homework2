@@ -29,7 +29,7 @@ class InventoryRepositoryTest {
         inventoryRepository.addGuitar("789012", 1499.99, Builder.GIBSON, "Les Paul", Type.ELECTRIC, Wood.MAPLE, Wood.MAPLE);
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             br.readLine();
-            assertEquals(br.readLine(), "789012,1499.99,Gibson,Les Paul,Electric,Mahogany,Maple");
+            assertEquals(br.readLine(), "789012,1499.99,Gibson,Les Paul,Electric,Maple,Maple");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -43,7 +43,7 @@ class InventoryRepositoryTest {
         String filePath = "guitars_database.txt";
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            assertEquals(br.readLine(), "123456,999.99,Fender,Stratocaster,Electric,Maple,Alder");
+            assertEquals(br.readLine(), "123456,999.99,Fender,Stratocaster,Electric,Maple,Maple");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

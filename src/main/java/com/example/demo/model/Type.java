@@ -7,9 +7,9 @@ public enum Type {
     public String toString() {
         switch (this) {
             case ACOUSTIC:
-                return "acoustic";
+                return "Acoustic";
             case ELECTRIC:
-                return "electric";
+                return "Electric";
             default:
                 return "unspecified";
         }
