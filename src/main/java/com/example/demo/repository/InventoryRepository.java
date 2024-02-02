@@ -1,6 +1,9 @@
 package com.example.demo.repository;
 
+import com.example.demo.model.Builder;
 import com.example.demo.model.Guitar;
+import com.example.demo.model.Type;
+import com.example.demo.model.Wood;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -20,7 +23,7 @@ public class InventoryRepository {
         }
     }
 
-    public void addGuitar(String serialNumber, double price, String builder, String model, String type, String backWood, String topWood) {
+    public void addGuitar(String serialNumber, double price, Builder builder, String model, Type type, Wood backWood, Wood topWood) {
         /**
          * takes variables and appends guitar to the list and file.
          */
