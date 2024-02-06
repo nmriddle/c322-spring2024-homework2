@@ -1,7 +1,20 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 public enum Wood {
-    INDIAN_ROSEWOOD, BRAZILIAN_ROSEWOOD, MAHOGANY, MAPLE, COCOBOLO, CEDAR, ADIRONDACK, ALDER, SITKA;
+    INDIAN_ROSEWOOD, BRAZILIAN_ROSEWOOD, MAHOGANY, MAPLE, COCOBOLO, CEDAR, ADIRONDACK, ALDER, SITKA, ANY;
+
+    @JsonCreator
+    public static Wood fromText(String text) {
+        for (Wood wood : Wood.values()) {
+            if (wood.toString().equalsIgnoreCase(text)) {
+                return wood;
+            }
+        }
+        // Default case or handle as needed
+        return Wood.ANY;
+    }
 
     public String toString() {
         switch (this) {
