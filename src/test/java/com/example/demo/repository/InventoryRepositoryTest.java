@@ -29,7 +29,7 @@ class InventoryRepositoryTest {
         inventoryRepository.addGuitar("789012", 1499.99, Builder.GIBSON, "Les Paul", Type.ELECTRIC, Wood.MAPLE, Wood.MAPLE);
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             br.readLine();
-            assertEquals(br.readLine(), "789012,1499.99,Gibson,Les Paul,Electric,Maple  ,Maple");
+            assertEquals(br.readLine(), "789012,1499.99,Gibson,Les Paul,Electric,Maple,Maple");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
