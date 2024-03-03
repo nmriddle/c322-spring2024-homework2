@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class HomeController {
     @GetMapping("/")
     public String greetings(){
-        System.out.println("this class is aids");return "Hey, what's up!";
+        System.out.println("f my life");return "Hey, what's up!";
     }
 }
