@@ -21,6 +21,7 @@ public class InventoryRepository {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println();
     }
 
     public void addGuitar(String serialNumber, double price, Builder builder, String model, Type type, Wood backWood, Wood topWood) {
