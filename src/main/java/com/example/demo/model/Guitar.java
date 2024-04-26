@@ -1,7 +1,13 @@
 package com.example.demo.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(schema = "guitars", name = "guitars")
 public class Guitar {
+    @Id
     private String serialNumber;
     private Double price;
     private Builder builder;
@@ -9,6 +15,9 @@ public class Guitar {
     private Type type;
     private Wood backWood;
     private Wood topWood;
+
+    public Guitar() {
+    }
 
     public Guitar(String serialNumber, Double price, Builder builder, String model, Type type, Wood backWood, Wood topWood) {
         this.serialNumber = serialNumber;

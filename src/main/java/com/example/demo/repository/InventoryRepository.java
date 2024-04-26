@@ -4,87 +4,32 @@ import com.example.demo.model.Builder;
 import com.example.demo.model.Guitar;
 import com.example.demo.model.Type;
 import com.example.demo.model.Wood;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-public class InventoryRepository {
-    private List<Guitar> guitars;
+@Repository
+public interface InventoryRepository extends CrudRepository<Guitar, String> {
+    Guitar findBySerialNumber(String serialNumber);
 
-    public InventoryRepository() {
-        guitars = new ArrayList<>();
-        try {
-            FileWriter writer = new FileWriter("guitars_database.txt", false);
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println();
-    }
+    @Query("SELECT g FROM Guitar g " +
+            "WHERE (:serialNumber IS NULL OR g.serialNumber = :serialNumber) " +
+            "AND (:builder IS NULL OR g.builder = :builder) " +
+            "AND (:price IS NULL OR g.price = :price) " +
+            "AND (:model IS NULL OR g.model = :model) " +
+            "AND (:type IS NULL OR g.type = :type) " +
+            "AND (:backWood IS NULL OR g.backWood = :backWood) " +
+            "AND (:topWood IS NULL OR g.topWood = :topWood)")
+    List<Guitar> search(@Param("serialNumber") String serialNumber,
+                        @Param("builder") Builder builder,
+                        @Param("price") Double price,
+                        @Param("model") String model,
+                        @Param("type") Type type,
+                        @Param("backWood") Wood backWood,
+                        @Param("topWood") Wood topWood);
 
-    public void addGuitar(String serialNumber, double price, Builder builder, String model, Type type, Wood backWood, Wood topWood) {
-        /**
-         * takes variables and appends guitar to the list and file.
-         */
-        if (getGuitar(serialNumber) != null) {
-            // cannot add the same serial number twice
-            return;
-        }
-        Guitar guitar = new Guitar(serialNumber, price, builder, model, type, backWood, topWood);
-        guitars.add(guitar);
-        try {
-            FileWriter writer = new FileWriter("guitars_database.txt", true);
-            writer.write(serialNumber + "," + price + "," + builder + "," + model + "," + type + "," + backWood + "," + topWood + "\n");
-            writer.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
-    public Guitar getGuitar(String serialNumber) {
-        /**
-         * checks if a guitar of a given serial number exists, returns null otherwise
-         */
-        for (Guitar guitar : guitars) {
-            if (guitar.getSerialNumber().equals(serialNumber)) {
-                return guitar;
-            }
-        }
-        return null;
-    }
-
-    public List<Guitar> search(Guitar searchGuitar) {
-        /**
-         * returns all guitars with the properties of searchGuitar (skips null ones)
-         *
-         */
-        List<Guitar> searchGuitars = new ArrayList<>();
-        for (Guitar guitar : guitars) {
-            if (searchGuitar.getSerialNumber() != null && !searchGuitar.getSerialNumber().equals(guitar.getSerialNumber())) {
-                continue;
-            }
-            if (searchGuitar.getBuilder() != null && !searchGuitar.getBuilder().equals(guitar.getBuilder())) {
-                continue;
-            }
-            if (searchGuitar.getPrice() != null && !searchGuitar.getPrice().equals(guitar.getPrice())) {
-                continue;
-            }
-            if (searchGuitar.getModel() != null && !searchGuitar.getModel().equals(guitar.getModel())) {
-                continue;
-            }
-            if (searchGuitar.getType() != null && !searchGuitar.getType().equals(guitar.getType())) {
-                continue;
-            }
-            if (searchGuitar.getBackWood() != null && !searchGuitar.getBackWood().equals(guitar.getBackWood())) {
-                continue;
-            }
-            if (searchGuitar.getTopWood() != null && !searchGuitar.getTopWood().equals(guitar.getTopWood())) {
-                continue;
-            }
-            searchGuitars.add(guitar);
-        }
-        return searchGuitars;
-    }
 }
